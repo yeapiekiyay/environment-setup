@@ -9,6 +9,7 @@ firefox-developer-edition
 google-chrome
 iterm2
 keybase
+spotify
 steam
 )
 
@@ -23,6 +24,7 @@ if [[ ! $(command -v brew) ]]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+# Get tapped taps
 installedBrewTaps=$(brew tap)
 
 # Tap a brew tap (use it as a source for brew packages)
