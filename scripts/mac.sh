@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Packages to install with brew cask
-packagesToInstall=(
+# Casks to install with brew
+casksToInstall=(
 1password
 atom
 bitwarden
@@ -44,22 +44,22 @@ for tap in "${brewTaps[@]}"; do
   tap "$tap"
 done
 
-# Get installed packages
-installedPackages=$(brew cask list)
+# Get installed casks
+installedCasks=$(brew cask list)
 
-install_cask_package() {
-  local package_name=$1
+install_cask() {
+  local cask_name=$1
 
-  if [[ $installedPackages != *$package_name* ]]; then
-    echo "Installing $package_name..."
+  if [[ $installedCasks != *$cask_name* ]]; then
+    echo "Installing $cask_name..."
 
-    brew cask install $package_name
+    brew cask install $cask_name
   else
-    echo "$package_name already installed!"
+    echo "$cask_name already installed!"
   fi
 }
 
-# Install the packages
-for package in "${packagesToInstall[@]}"; do
-  install_cask_package "$package"
+# Install the casks
+for cask in "${casksToInstall[@]}"; do
+  install_cask "$cask"
 done
