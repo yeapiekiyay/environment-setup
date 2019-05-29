@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Formulae to install with brew
+formulaeToInstall=(
+python3
+)
+
 # Casks to install with brew
 casksToInstall=(
 1password
@@ -13,6 +18,11 @@ spotify
 steam
 )
 
+pythonPackagesToInstall=(
+powerline-status
+)
+
+# Brew taps to use
 brewTaps=(
 homebrew/cask-versions
 )
@@ -23,6 +33,26 @@ if [[ ! $(command -v brew) ]]; then
 
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
+
+# Get installed formulae
+installedFormulae=$(brew list)
+
+install_formula() {
+  local formula_name=$1
+
+  if [[ $installedFormulas != *$formula_name* ]]; then
+    echo "Installing $formula_name..."
+
+    brew install $formula_name
+  else
+    echo "$formula_name already installed!"
+  fi
+}
+
+# Install the formulae
+for formula in "${formulaeToInstall[@]}"; do
+  install_formula $formula
+done
 
 # Get tapped taps
 installedBrewTaps=$(brew tap)
@@ -41,7 +71,7 @@ tap() {
 }
 
 for tap in "${brewTaps[@]}"; do
-  tap "$tap"
+  tap $tap
 done
 
 # Get installed casks
@@ -61,5 +91,26 @@ install_cask() {
 
 # Install the casks
 for cask in "${casksToInstall[@]}"; do
-  install_cask "$cask"
+  install_cask $cask
 done
+
+installedPythonPackages=$(pip3 list)
+
+install_python_package() {
+  local package_name=$1
+
+  if [[ $installedPythonPackages != *$package_name* ]]; then
+    echo "Installing $package_name..."
+
+    pip3 install $package_name
+  else
+    echo "$package_name already installed!"
+  fi
+}
+
+# Install python packages
+for package in "${pythonPackagesToInstall[@]}"; do
+  install_python_package $package
+done
+
+# TODO: Configure powerline-status programmatically: https://medium.com/@ITZDERR/how-to-install-powerline-to-pimp-your-bash-prompt-for-mac-9b82b03b1c02
