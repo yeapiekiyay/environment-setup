@@ -2,6 +2,7 @@
 
 # Formulae to install with brew
 formulaeToInstall=(
+jq
 python3
 )
 
@@ -20,6 +21,7 @@ steam
 
 pythonPackagesToInstall=(
 powerline-status
+powerline-gitstatus
 )
 
 # Brew taps to use
